@@ -19,4 +19,14 @@ int average(const RGBTRIPLE pixel);
 void make_sepia_pixel(RGBTRIPLE *pixel);
 
 // BYTE type caps number at 255
-BYTE hex_cap_and_byte(double value);
+static inline BYTE hex_cap_and_byte(double value)
+{
+    if (value > 255.0)
+    {
+        return (BYTE) 255;
+    }
+    else
+    {
+        return round((BYTE) value);
+    }
+}

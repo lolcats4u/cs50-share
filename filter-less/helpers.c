@@ -81,15 +81,3 @@ void make_sepia_pixel(RGBTRIPLE *pixel)
 
     return;
 }
-
-BYTE hex_cap_and_byte(double value)
-{
-    if (value > 255.0)
-    {
-        return (BYTE) 255;
-    }
-    else
-    {
-        return round((BYTE)) value;
-    }
-}
