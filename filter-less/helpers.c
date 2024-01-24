@@ -2,8 +2,6 @@
 #include <math.h>
 #include <stdlib.h>
 
-static inline BYTE hex_cap_and_byte(double value);
-
 // Convert image to grayscale
 void grayscale(int height, int width, RGBTRIPLE image[height][width])
 {
