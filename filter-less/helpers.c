@@ -9,7 +9,7 @@ void grayscale(int height, int width, RGBTRIPLE image[height][width])
     {
         for(int column = 0; column < width; column++)
         {
-            int average = average(image[row][column]);
+            BYTE mean = average(image[row][column]);
             image[row][column].rgbtBlue = average;
             image[row][column].rgbtGreen = average;
             image[row][column].rgbtRed = average;
