@@ -14,7 +14,7 @@ void reflect(int height, int width, RGBTRIPLE image[height][width]);
 void blur(int height, int width, RGBTRIPLE image[height][width]);
 
 // Average pixel values
-int average(const RGBTRIPLE pixel);
+BYTE average(const RGBTRIPLE pixel);
 
 // Performs Sepia Calculation on Pixel
 void make_sepia_pixel(RGBTRIPLE *pixel);
