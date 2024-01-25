@@ -39,6 +39,7 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
     {
         for(int column = 0; column < width; column++)
         {
+            // imagecopy[row][width-(column+1)] 2d implementation
             image_copy[width*(row+1)-column-1] = image[row][column];
         }
     }
@@ -60,9 +61,8 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
 int average(const RGBTRIPLE pixel)
 {
     int sum = pixel.rgbtBlue + pixel.rgbtGreen + pixel.rgbtRed;
-    int average = sum/3;
-    average = hex_cap_and_byte(average);
-    return average;
+    int temp = sum/3;
+    return hex_cap_and_byte(temp)
 }
 
 void make_sepia_pixel(RGBTRIPLE *pixel)
