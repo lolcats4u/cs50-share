@@ -2,10 +2,9 @@
 #include "bmp.h"
 
 void blur(int height, int width, RGBTRIPLE[height][width]);
-static inline 
+RGBTRIPLE average_color(int num_pixels, RGBTRIPLE[num_pixels] array);
 
-
-void blur(int height, int width, RGBTRIPLE[height][width] iamge)
+void blur(int height, int width, RGBTRIPLE[height][width] image)
 {
     RGBTRIPLE* image_copy = malloc(width*height*sizeof(RGBTRIPLE));
 
@@ -14,6 +13,9 @@ void blur(int height, int width, RGBTRIPLE[height][width] iamge)
         return;
     }
     
+    int row1;
+    int row2;
+    int row3;
 
     RGBTRIPLE[9] temp_array;
     // First pixel
@@ -24,15 +26,20 @@ void blur(int height, int width, RGBTRIPLE[height][width] iamge)
     image[0][0] = average_color(4, temp_array);
 
     // First row
+    row1 = 0;
+    row2 = width;
+
     for(int col = 1; col < width - 1; col++)
     {
-        temp_array[0] = image_copy[col-1];
-        temp_array[1] = image_copy[col];
-        temp_array[2] = image_copy[col+1];
-        temp_array[3] = image_copy[width+col-1];
-        temp_array[4] = image_copy[width+col];
-        temp_array[5] = image_copy[width+col+1];
+        temp_array[0] = image_copy[row1];
+        temp_array[1] = image_copy[row1+1];
+        temp_array[2] = image_copy[row1+2];
+        temp_array[3] = image_copy[row2];
+        temp_array[4] = image_copy[row2+1];
+        temp_array[5] = image_copy[row2+2];
         image[0][col] = average_color(6, temp_array);
+        row1++;
+        row2++;
     }
     // Last pixel, first row
     temp_array[0] = image_copy[width-2];
@@ -42,9 +49,7 @@ void blur(int height, int width, RGBTRIPLE[height][width] iamge)
     image[0][width-1] = average_color(4, temp_array);
 
     // Middle rows
-    int row1;
-    int row2;
-    int row3;
+
     for(int row = 1; row < height - 1; row++)
     {
         current_pixel = row*width;
@@ -86,7 +91,38 @@ void blur(int height, int width, RGBTRIPLE[height][width] iamge)
         image[row][width-1] = average_color(6,temp_array);
     }
 
-    // TODO: Last row
+    // Bottom left corner
+    start = width*(height-2);
+    temp_array[0] = image_copy[start];
+    temp_array[1] = image_copy[start+1];
+    temp_array[2] = image_copy[start+width];
+    temp_array[3] = image_copy[start+width+1];
+    image[height-1][0] = average_color(4, temp_array);
+
+    // Last row
+    row1 = width*(height-2);
+    row2 = width*(height-1);
+    for(int col = 1; col < width - 1; col++)
+    {
+        temp_array[0] = image_copy[row1];
+        temp_array[1] = image_copy[row1+1];
+        temp_array[2] = image_copy[row1+2];
+        temp_array[3] = image_copy[row2];
+        temp_array[4] = image_copy[row2+1];
+        temp_array[5] = image_copy[row2+2];
+        image[height-1][col] = average_color(6, temp_array);
+        row1++;
+        row2++;
+    }
+    // Last pixel, last row
+
+    start = width*(height-1)-2
+
+    temp_array[0] = image_copy[start];
+    temp_array[1] = image_copy[start+1];
+    temp_array[2] = image_copy[(height*width)-2];
+    temp_array[3] = image_copy[(height*width)-1];
+    image[height-1][width-1] = average_color(4, temp_array);
 
     free(image_copy);
     return;
