@@ -52,12 +52,6 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
     return;
 }
 
-// Blur image
-void blur(int height, int width, RGBTRIPLE image[height][width])
-{
-    return;
-}
-
 BYTE average(const RGBTRIPLE pixel)
 {
     int sum = pixel.rgbtBlue + pixel.rgbtGreen + pixel.rgbtRed;

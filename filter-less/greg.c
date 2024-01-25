@@ -1,7 +1,7 @@
 #include "helpers.h"
-#include "bmp.h"
+#include <stdlib.h>
 
-RGBTRIPLE average_color(int num_pixels, RGBTRIPLE array[num_pixels]);
+void average_color(int num_pixels, RGBTRIPLE** array, RGBTRIPLE* current_pixel);
 
 void blur(int height, int width, RGBTRIPLE image[height][width])
 {
@@ -11,10 +11,20 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     {
         return;
     }
+    int temp;
+    for(int row = 0; row < height; row++){
+        temp = row*width;
+        for(int col = 0; col < width; col++)
+        {
+            image_copy[temp+col] = image[row][col];
+        }
+    }
     
     int row1;
     int row2;
     int row3;
+    int current_pixel;
+    int start;
 
     RGBTRIPLE* temp_array[9];
     // First pixel
@@ -35,7 +45,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     temp_array[5] = image_copy + row2+2;
     for(int col = 1; col < width - 1; col++)
     {
-        image[0][col] = average_color(6, temp_array);
+        average_color(6, temp_array, &image[0][col]);
         temp_array[0]++;
         temp_array[1]++;
         temp_array[2]++;
@@ -128,7 +138,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     }
     // Last pixel, last row
 
-    start = width*(height-1)-2
+    start = width*(height-1)-2;
 
     temp_array[0] = image_copy + start;
     temp_array[1] = image_copy + start+1;
@@ -140,7 +150,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     return;
 }
 
-void average_color(int num_pixels, const RGBTRIPLE* array[num_pixels], RGBTRIPLE* current_pixel)
+void average_color(int num_pixels, RGBTRIPLE** array, RGBTRIPLE* current_pixel)
 {
     int red = 0;
     int green = 0;
