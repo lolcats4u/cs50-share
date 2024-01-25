@@ -1,10 +1,9 @@
 #include "helpers.h"
 #include "bmp.h"
 
-void blur(int height, int width, RGBTRIPLE[height][width]);
-RGBTRIPLE average_color(int num_pixels, RGBTRIPLE[num_pixels] array);
+RGBTRIPLE average_color(int num_pixels, RGBTRIPLE array[num_pixels]);
 
-void blur(int height, int width, RGBTRIPLE[height][width] image)
+void blur(int height, int width, RGBTRIPLE image[height][width])
 {
     RGBTRIPLE* image_copy = malloc(width*height*sizeof(RGBTRIPLE));
 
@@ -128,7 +127,7 @@ void blur(int height, int width, RGBTRIPLE[height][width] image)
     return;
 }
 
-RGBTRIPLE average_color(int num_pixels, RGBTRIPLE[num_pixels] array)
+RGBTRIPLE average_color(int num_pixels, RGBTRIPLE array[num_pixels])
 {
     int red = 0;
     int green = 0;
