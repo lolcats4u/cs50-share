@@ -62,7 +62,7 @@ int average(const RGBTRIPLE pixel)
 {
     int sum = pixel.rgbtBlue + pixel.rgbtGreen + pixel.rgbtRed;
     int temp = sum/3;
-    return hex_cap_and_byte(temp)
+    return hex_cap_and_byte(temp);
 }
 
 void make_sepia_pixel(RGBTRIPLE *pixel)
