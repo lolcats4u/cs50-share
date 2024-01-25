@@ -81,31 +81,27 @@ bool is_corner(int height, int width, int current_height_index, int current_widt
         if(current_width_index ==0 | current_width_index == width_index_largest){
             return true;
         }
-    }else if (current_width_index ==0 | current_width_index == width_index_largest){
-        if(current_height_index ==0 | current_height_index == height_index_largest){
-            return true;
-        }
-    }else{
-        return false;
-    }
+    }return false;
 }
-int corner_average(int height, int width, int current_height_index, int current_width_index, RGBTRIPLE *pixel_original, RGBTRIPLE *pixel_copy){
+int blur_corner(int height, int width, int current_height_index, int current_width_index, int oned_index, RGBTRIPLE *image_copy[oned_index], RGBTRIPLE *original_image[current_height_index][current_width_index]){
     int height_index_largest = height-1;
     int width_index_largest = width-1;
     //Upper Left
     if(current_height_index == 0 & current_width_index == 0){
-        RGBTRIPLE original_pixel = *pixel_copy;
-        RGBTRIPLE one_to_the_right = *(pixel_copy + 1);
-        RGBTRIPLE one_down = *(pixel_copy + ((width*current_height_index + 1 )+current_width_index));
-        RGBTRIPLE one_down_one_to_the_right = *(pixel_copy + ((width*current_height_index + 1 )+current_width_index + 1 ));
+        RGBTRIPLE original_pixel = *image_copy[oned_index_math(width, current_height_index, current_width_index)];
+        RGBTRIPLE one_to_the_right = *image_copy[oned_index_math(width, current_height_index, current_width_index + 1)];
+        RGBTRIPLE one_down = *image_copy[oned_index_math(width, current_height_index + 1, current_width_index)];
+        RGBTRIPLE one_down_one_to_the_right = *image_copy[oned_index_math(width, current_height_index + 1, current_width_index + 1)];
 
-        BYTE mean_red = hex_cap_and_byte((original_pixel.rgbtRed + one_to_the_right.rgbtRed + one_down.rgbtRed + one_down_one_to_the_right.rgbtRed)/4);
-        BYTE mean_green = hex_cap_and_byte((original_pixel.rgbtGreen + one_to_the_right.rgbtGreen + one_down.rgbtGreen + one_down_one_to_the_right.rgbtGreen)/4);
-        BYTE mean_blue = hex_cap_and_byte((original_pixel.rgbtBlue + one_to_the_right.rgbtBlue + one_down.rgbtBlue + one_down_one_to_the_right.rgbtBlue)/4);
+        RGBTRIPLE blur_pixel_fodder [] = {original_pixel, one_to_the_right, one_down, one_down_one_to_the_right};
 
-        pixel_copy->rgbtRed = mean_red;
-        pixel_copy->rgbtBlue = mean_blue;
-        pixel_copy->rgbtGreen = mean_green;
+        RGBTRIPLE new_blurred_pixel = make_blurred_pixel(4, blur_pixel_fodder);
+
+        original_image[current_height_index][current_width_index]->rgbtRed = new_blurred_pixel.rgbtRed;
+        original_image[current_height_index][current_width_index]->rgbtGreen = new_blurred_pixel.rgbtGreen;
+        original_image[current_height_index][current_width_index]->rgbtBlue = new_blurred_pixel.rgbtBlue;
+
+
     //Upper Right
     }else if(current_height_index == 0 & current_width_index==width_index_largest){
 
@@ -155,6 +151,27 @@ BYTE average(const RGBTRIPLE pixel)
     return hex_cap_and_byte(temp);
 }
 
+RGBTRIPLE make_blurred_pixel(int number_of_pixels, RGBTRIPLE pixel_array[number_of_pixels]){
+    RGBTRIPLE new_pixel;
+    int red_buffer = 0;
+    int green_buffer = 0;
+    int blue_buffer = 0;
+    for(int i = 0; i < number_of_pixels -1; i++){
+        red_buffer = red_buffer + pixel_array[i].rgbtRed;
+        green_buffer = green_buffer + pixel_array[i].rgbtGreen;
+        blue_buffer = blue_buffer + pixel_array[i].rgbtBlue;
+    }
+    red_buffer = round(red_buffer/number_of_pixels);
+    green_buffer = round(green_buffer/number_of_pixels);
+    blue_buffer = round(blue_buffer/number_of_pixels);
+
+    new_pixel.rgbtRed = red_buffer;
+    new_pixel.rgbtGreen = green_buffer;
+    new_pixel.rgbtBlue = blue_buffer;
+
+    return new_pixel;
+}
+
 void make_sepia_pixel(RGBTRIPLE *pixel)
 {
     const RGBTRIPLE reference = {.rgbtBlue = pixel->rgbtBlue, .rgbtGreen = pixel->rgbtGreen, .rgbtRed = pixel->rgbtRed};
@@ -168,4 +185,8 @@ void make_sepia_pixel(RGBTRIPLE *pixel)
     pixel->rgbtRed = red;
 
     return;
+}
+
+int oned_index_math(int width, int row_index, int column_index){
+    return ((width*row_index) + column_index);
 }

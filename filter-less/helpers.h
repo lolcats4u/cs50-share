@@ -26,6 +26,10 @@ bool is_corner(int height, int width, int current_height_index, int current_widt
 //Calculate the average of the RGB values of a corner pixel
 int corner_average(int height, int width, int current_height_index, int current_width_index, RGBTRIPLE);
 
+int oned_index_math(int width, int row_index, int column_index);
+
+RGBTRIPLE make_blurred_pixel(int number_of_pixels, RGBTRIPLE pixel_array[number_of_pixels]);
+
 // BYTE type caps number at 255
 static inline BYTE hex_cap_and_byte(double value)
 {
