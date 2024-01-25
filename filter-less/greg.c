@@ -140,7 +140,7 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     return;
 }
 
-void average_color(int num_pixels, RGBTRIPLE* array[num_pixels], RGBTRIPLE* current_pixel)
+void average_color(int num_pixels, const RGBTRIPLE* array[num_pixels], RGBTRIPLE* current_pixel)
 {
     int red = 0;
     int green = 0;
