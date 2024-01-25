@@ -39,12 +39,12 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
     {
         for(int column = 0; column < width; column++)
         {
-            image_copy[width(row+1)-column-1] = image[row][column];
+            image_copy[width*(row+1)-column-1] = image[row][column];
         }
     }
     for(int row = 0; row < height; row ++){
         for(int column = 0; column < width; column++){
-            image[row][column] = image_copy[row][column];
+            image[row][column] = image_copy[(width*row) + column];
         }
     }
     free(image_copy);
