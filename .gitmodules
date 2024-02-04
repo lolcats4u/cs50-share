@@ -1,0 +1,3 @@
+[submodule "recover"]
+	path = recover
+	url = https://github.com/lolcats4u/cs50-share
