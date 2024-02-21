@@ -1,15 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
- 
+int open_memory_card();
+int int_to_counter();
 int main(int argc, char *argv[])
 {
- 
+    open_memory_card(argv[1]);
 }
 
-int open_memory_card()
+int open_memory_card(char *cl_argument)
 {
     int number_of_jpegs_read = 0;
-    FILE* memory_card_file_stream = fopen(argv[1], "r");
+    FILE* memory_card_file_stream = fopen(cl_argument, "r");
     if(memory_card_file_stream != NULL)
     {   
         char buffer_512_bytes[512];
