@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 int open_memory_card();
-int int_to_counter();
+int int_to_counter(int number_of_jpegs);
 int main(int argc, char *argv[])
 {
     open_memory_card(argv[1]);
