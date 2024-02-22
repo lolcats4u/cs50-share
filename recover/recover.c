@@ -34,25 +34,23 @@ void open_memory_card(char *cl_argument)
         {
             if(writing_file && jpeg_header_bool(buffer_512_bytes)){
                 fclose(new_jpeg);
+                number_of_jpegs_read++;
                 writing_file = false;
             }
             if(jpeg_header_bool(buffer_512_bytes) && !writing_file){
                 int_to_counter(number_of_jpegs_read, file_counter);
-                *new_jpeg = fopen(file_counter, "wb");
+                new_jpeg = fopen(file_counter, "wb");
                 if(new_jpeg != NULL){
-                    fwrite(buffer_512_bytes,sizeof(buffer_512_bytes[0]), 512, new_jpeg);
                     writing_file = true;
                 }
             }
-            if(writing_file && !jpeg_header_bool(buffer_512_bytes)){
+            if(writing_file){
                 if(new_jpeg != NULL){
                     fwrite(buffer_512_bytes,sizeof(buffer_512_bytes[0]),512, new_jpeg);
-                    writing_file = true;
                 }
             }
         }
-
-        }
+    }
     }else if(feof(memory_card_file_stream)){
         fclose(memory_card_file_stream);
         printf("Reached end of card\n");
