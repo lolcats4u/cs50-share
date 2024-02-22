@@ -4,7 +4,7 @@
 #include <inttypes.h>
 
 int open_memory_card(char *cl_argument);
-char* int_to_counter(int number_of_jpegs, char* base_counter[3]);
+void int_to_counter(int number_of_jpegs, char* base_counter[3]);
 typedef uint8_t BYTE;
 
 int main(int argc, char *argv[])
@@ -24,7 +24,7 @@ int open_memory_card(char *cl_argument)
     file_counter[0] = "0";
     file_counter[1] = "0";
     file_counter[2] = "0";
-    FILE* memory_card_file_stream = fopen(cl_argument, "r");
+    FILE* memory_card_file_stream = fopen(cl_argument, "rb");
     if(memory_card_file_stream != NULL)
     {   
         BYTE buffer_512_bytes[512];
@@ -38,7 +38,8 @@ int open_memory_card(char *cl_argument)
                 && (buffer_512_bytes[3] & 0xf0) == 0xe0
                 )
                 {
-                    FILE *new_jpeg = fopen(int_to_counter(number_of_jpegs_read, file_counter), "w");
+                    int_to_counter(number_of_jpegs_read, file_counter);
+                    FILE *new_jpeg = fopen(file_counter, "w");
                     fwrite(new_jpeg,sizeof(buffer_512_bytes[0]), 512, buffer_512_bytes);
                     if(new_jpeg == NULL)
                     {
@@ -54,7 +55,7 @@ int open_memory_card(char *cl_argument)
     return 0;
 }
 
-char* int_to_counter(int number_of_jpegs, char* base_counter[3])
+void int_to_counter(int number_of_jpegs, char* base_counter[3])
 {
     if(number_of_jpegs < 10){
         //int to ascii conversion
@@ -76,5 +77,4 @@ char* int_to_counter(int number_of_jpegs, char* base_counter[3])
         *base_counter[1] = tens_place;
         *base_counter[2] = ones_place;
     }
-    return base_counter;
 }
