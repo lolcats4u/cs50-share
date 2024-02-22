@@ -16,16 +16,16 @@ int main(int argc, char *argv[])
     }
     else{
         printf("Please include filename");
-        return 2;
+        return 1;
     }
 }
 
 int open_memory_card(char *cl_argument)
 {
-    // return 1; 
+    // return 2; 
     // failed to open new jpeg file;
 
-    //return2;
+    //return1;
     //bad cla
 
     //return3;
@@ -53,7 +53,7 @@ int open_memory_card(char *cl_argument)
                     file_is_open = true;
                 }else{
                     printf("Jpeg failed to open");
-                    return 1;
+                    return 2;
                 }
             }
             if(file_is_open){
