@@ -37,20 +37,25 @@ int open_memory_card(char *cl_argument)
                 {
                     int_to_counter(number_of_jpegs_read, file_counter);
                     FILE *new_jpeg = fopen(file_counter, "wb");
-                    if(new_jpeg != NULL)
-                    {
+                    if(new_jpeg != NULL){
                         fwrite(buffer_512_bytes,sizeof(buffer_512_bytes[0]), 512, new_jpeg);
                         fclose(new_jpeg);
                         number_of_jpegs_read++;
                     }
                     else{
+                        fclose(memory_card_file_stream);
                         fclose(new_jpeg);
                         return 1;
                     }
                 }
         }
+    }else if(feof(memory_card_file_stream)){
+        fclose(memory_card_file_stream);
+        return 0;
     }
-    return 0;
+    else{
+        return 1;
+    }
 }
 
 void int_to_counter(int number_of_jpegs, char* base_counter)
