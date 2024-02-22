@@ -51,7 +51,7 @@ void open_memory_card(char *cl_argument)
             }
         }
     }
-    }else if(feof(memory_card_file_stream)){
+    else if(feof(memory_card_file_stream)){
         fclose(memory_card_file_stream);
         printf("Reached end of card\n");
     }
