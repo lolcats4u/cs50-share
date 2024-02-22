@@ -37,8 +37,8 @@ int open_memory_card(char *cl_argument)
                 )
                 {
                     int_to_counter(number_of_jpegs_read, file_counter);
-                    FILE *new_jpeg = fopen(file_counter, "w");
-                    fwrite(new_jpeg,sizeof(buffer_512_bytes[0]), 512, buffer_512_bytes);
+                    FILE *new_jpeg = fopen(file_counter, "wb");
+                    fwrite(buffer_512_bytes,sizeof(buffer_512_bytes[0]), 512, new_jpeg);
                     if(new_jpeg == NULL)
                     {
                         fclose(new_jpeg);
