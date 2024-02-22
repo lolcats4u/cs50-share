@@ -13,14 +13,14 @@ int open_memory_card(char *cl_argument)
     FILE* memory_card_file_stream = fopen(cl_argument, "r");
     if(memory_card_file_stream != NULL)
     {   
-        char buffer_512_bytes[512];
+        BYTE buffer_512_bytes[512];
         while(fread(&buffer_512_bytes, sizeof(buffer_512_bytes),1,memory_card_file_stream))
         {
 
             if(
                 buffer_512_bytes[0] == 0xff 
                 && buffer_512_bytes[1] == 0xd8 
-                && buffer_512_bytes [2] == 0xff 
+                && buffer_512_bytes[2] == 0xff 
                 && (buffer_512_bytes[3] & 0xf0) == 0xe0
                 )
                 {
@@ -60,3 +60,5 @@ char* int_to_counter(int number_of_jpegs)
     }
     return base_counter;
 }
+
+typedef uint8_t BYTE;
