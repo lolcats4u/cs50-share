@@ -56,8 +56,11 @@ char* int_to_counter(int number_of_jpegs, char* base_counter[3])
     if(number_of_jpegs < 10){
         //int to ascii conversion
         base_counter[2] = number_of_jpegs + 48;
+        base_counter[1] = 48;
+        base_counter[0] = 48;
     }else if ( 10 <= number_of_jpegs && number_of_jpegs <= 99){
         while (number_of_jpegs != 0){
+            base_counter[0] = 48;
             base_counter[1] = (number_of_jpegs % 10) + 48;
             base_counter[2] = (number_of_jpegs - ((number_of_jpegs % 10) * 10)) + 48;
         }
