@@ -59,7 +59,12 @@ int open_memory_card(char *cl_argument)
             if(file_is_open){
                 fwrite(buffer_512_bytes,sizeof(buffer_512_bytes[0]),512, new_jpeg);
             }
-        }return 0;
+        }
+        if(file_is_open){
+            fclose(new_jpeg);
+        }
+        fclose(memory_card_file_stream);
+        return 0;
     }
     else{
         printf("File %s not found", cl_argument);
