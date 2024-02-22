@@ -39,6 +39,7 @@ int open_memory_card(char *cl_argument)
         }
 
     }
+    return 0;
 }
 
 char* int_to_counter(int number_of_jpegs)
@@ -47,7 +48,7 @@ char* int_to_counter(int number_of_jpegs)
     if(number_of_jpegs < 10){
         //int to ascii conversion
         base_counter[2] = number_of_jpegs + 48;
-    }else if ( 10 <= number_of_jpegs <= 99){
+    }else if ( 10 <= number_of_jpegs && number_of_jpegs <= 99){
         while (number_of_jpegs != 0){
             base_counter[1] = (number_of_jpegs % 10) + 48;
             base_counter[2] = (number_of_jpegs - ((number_of_jpegs % 10) * 10)) + 48;
