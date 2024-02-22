@@ -44,6 +44,7 @@ int open_memory_card(char *cl_argument)
                         fclose(new_jpeg);
                         return 1;
                     }
+                    fclose(new_jpeg);
                     number_of_jpegs_read++;
                 }
 
