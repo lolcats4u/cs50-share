@@ -63,7 +63,7 @@ void int_to_counter(int number_of_jpegs, char* base_counter)
         int hundreds_place = number_of_jpegs /100;
         int tens_place = (number_of_jpegs-hundreds_place*100)/10;
         int ones_place = number_of_jpegs - hundreds_place*100 - tens_place*10;
-        base_counter[0] = hundreds_place;
-        base_counter[1] = tens_place;
-        base_counter[2] = ones_place;
+        base_counter[0] = hundreds_place +48;
+        base_counter[1] = tens_place +48;
+        base_counter[2] = ones_place +48;
 }
