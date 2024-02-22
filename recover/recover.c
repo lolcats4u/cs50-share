@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-int open_memory_card();
+
+int open_memory_card(char *cl_argument);
 char* int_to_counter(int number_of_jpegs);
 typedef uint8_t BYTE;
 
