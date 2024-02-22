@@ -60,24 +60,10 @@ void open_memory_card(char *cl_argument)
 
 void int_to_counter(int number_of_jpegs, char* base_counter)
 {
-    if(number_of_jpegs < 10){
-        //int to ascii conversion
-        base_counter[2] = number_of_jpegs + 48;
-        base_counter[1] = 48;
-        base_counter[0] = 48;
-    }else if ( 10 <= number_of_jpegs && number_of_jpegs <= 99){
-        while (number_of_jpegs != 0){
-            base_counter[0] = 48;
-            base_counter[1] = (number_of_jpegs % 10) + 48;
-            base_counter[2] = (number_of_jpegs - ((number_of_jpegs % 10) * 10)) + 48;
-        }
-    }else
-    {
-        int ones_place = number_of_jpegs /100;
-        int tens_place = (number_of_jpegs/10) - ones_place;
-        int hundreds_place = number_of_jpegs - ones_place - tens_place;
+        int hundreds_place = number_of_jpegs /100;
+        int tens_place = (number_of_jpegs-hundreds_place*100)/10;
+        int ones_place = number_of_jpegs - hundreds_place*100 - tens_place*10;
         base_counter[0] = hundreds_place;
         base_counter[1] = tens_place;
         base_counter[2] = ones_place;
-    }
 }
