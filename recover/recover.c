@@ -4,7 +4,7 @@
 #include <inttypes.h>
 
 int open_memory_card(char *cl_argument);
-char* int_to_counter(int number_of_jpegs, char* base_counter);
+char* int_to_counter(int number_of_jpegs, char* base_counter[3]);
 typedef uint8_t BYTE;
 
 int main(int argc, char *argv[])
@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 int open_memory_card(char *cl_argument)
 {
     int number_of_jpegs_read = 0;
-    char* file_counter = "000";
+    char* file_counter[3];
     FILE* memory_card_file_stream = fopen(cl_argument, "r");
     if(memory_card_file_stream != NULL)
     {   
@@ -51,7 +51,7 @@ int open_memory_card(char *cl_argument)
     return 0;
 }
 
-char* int_to_counter(int number_of_jpegs, char* base_counter)
+char* int_to_counter(int number_of_jpegs, char* base_counter[3])
 {
     if(number_of_jpegs < 10){
         //int to ascii conversion
