@@ -20,7 +20,10 @@ int main(int argc, char *argv[])
 int open_memory_card(char *cl_argument)
 {
     int number_of_jpegs_read = 0;
-    char* file_counter[3] = "000";
+    char* file_counter[3];
+    file_counter[0] = "0";
+    file_counter[1] = "0";
+    file_counter[2] = "0";
     FILE* memory_card_file_stream = fopen(cl_argument, "r");
     if(memory_card_file_stream != NULL)
     {   
@@ -36,7 +39,7 @@ int open_memory_card(char *cl_argument)
                 )
                 {
                     FILE *new_jpeg = fopen(int_to_counter(number_of_jpegs_read, file_counter), "w");
-                    fprintf(new_jpeg, "%s", buffer_512_bytes);
+                    fwrite(new_jpeg,sizeof(buffer_512_bytes[0]), 512, buffer_512_bytes);
                     if(new_jpeg == NULL)
                     {
                         fclose(new_jpeg);
