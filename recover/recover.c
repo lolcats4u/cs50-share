@@ -8,7 +8,12 @@ typedef uint8_t BYTE;
 
 int main(int argc, char *argv[])
 {
-    open_memory_card(argv[1]);
+    if(argc == 2){
+        open_memory_card(argv[1]);
+    }
+    else{
+        printf("Please include filename");
+    }
 }
 
 int open_memory_card(char *cl_argument)
