@@ -28,7 +28,6 @@ int open_memory_card(char *cl_argument)
         BYTE buffer_512_bytes[512];
         while(fread(&buffer_512_bytes, sizeof(buffer_512_bytes),1,memory_card_file_stream))
         {
-
             if(
                 buffer_512_bytes[0] == 0xff 
                 && buffer_512_bytes[1] == 0xd8 
@@ -38,18 +37,18 @@ int open_memory_card(char *cl_argument)
                 {
                     int_to_counter(number_of_jpegs_read, file_counter);
                     FILE *new_jpeg = fopen(file_counter, "wb");
-                    fwrite(buffer_512_bytes,sizeof(buffer_512_bytes[0]), 512, new_jpeg);
-                    if(new_jpeg == NULL)
+                    if(new_jpeg != NULL)
                     {
+                        fwrite(buffer_512_bytes,sizeof(buffer_512_bytes[0]), 512, new_jpeg);
+                        fclose(new_jpeg);
+                        number_of_jpegs_read++;
+                    }
+                    else{
                         fclose(new_jpeg);
                         return 1;
                     }
-                    fclose(new_jpeg);
-                    number_of_jpegs_read++;
                 }
-
         }
-
     }
     return 0;
 }
