@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 void open_memory_card(char *cl_argument)
 {
     int number_of_jpegs_read = 0;
-    char file_counter[3] = "000";
+    char file_counter[4] = "000";
 
     FILE* memory_card_file_stream = fopen(cl_argument, "rb");
     if(memory_card_file_stream != NULL)
