@@ -63,5 +63,3 @@ char* int_to_counter(int number_of_jpegs)
     }
     return base_counter;
 }
-
-typedef uint8_t BYTE;
