@@ -28,10 +28,11 @@ void open_memory_card(char *cl_argument)
     if(memory_card_file_stream != NULL)
     {   
         BYTE buffer_512_bytes[512];
+        FILE *new_jpeg;
         while(fread(&buffer_512_bytes, sizeof(buffer_512_bytes),1,memory_card_file_stream))
         {
             bool writing_file = false;
-            FILE *new_jpeg;
+
             if(jpeg_header_bool(buffer_512_bytes) && !writing_file){
                 int_to_counter(number_of_jpegs_read, file_counter);
                 *new_jpeg = fopen(file_counter, "wb");
