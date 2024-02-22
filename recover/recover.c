@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <inttypes.h>
 
 int open_memory_card(char *cl_argument);
 char* int_to_counter(int number_of_jpegs);
@@ -34,7 +35,7 @@ int open_memory_card(char *cl_argument)
                 )
                 {
                     FILE *new_jpeg = fopen(int_to_counter(number_of_jpegs_read), "w");
-                    fprintf(new_jpeg, sizeof(512*sizeof(BYTE)), buffer_512_bytes);
+                    fprintf(new_jpeg, "%c", buffer_512_bytes);
                     if(new_jpeg == NULL)
                     {
                         fclose(new_jpeg);
