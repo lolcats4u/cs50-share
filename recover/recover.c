@@ -57,11 +57,6 @@ int open_memory_card(char *cl_argument)
             }
         }return 0;
     }
-    else if(feof(memory_card_file_stream)){
-        fclose(memory_card_file_stream);
-        printf("Reached end of card\n");
-        return 0;
-    }
     else{
         printf("File %s not found", cl_argument);
         return 2;
