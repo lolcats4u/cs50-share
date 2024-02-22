@@ -32,6 +32,10 @@ void open_memory_card(char *cl_argument)
         bool writing_file = false;
         while(fread(&buffer_512_bytes, sizeof(buffer_512_bytes),1,memory_card_file_stream))
         {
+            if(writing_file && jpeg_header_bool(buffer_512_bytes)){
+                fclose(new_jpeg);
+                writing_file = false;
+            }
             if(jpeg_header_bool(buffer_512_bytes) && !writing_file){
                 int_to_counter(number_of_jpegs_read, file_counter);
                 *new_jpeg = fopen(file_counter, "wb");
@@ -40,21 +44,13 @@ void open_memory_card(char *cl_argument)
                     writing_file = true;
                 }
             }
-            else if(writing_file && jpeg_header_bool(buffer_512_bytes)){
-                fclose(new_jpeg);
-                writing_file = false;
-            }
-            else if(!writing_file && !jpeg_header_bool(buffer_512_bytes))
-            {
-                fclose(memory_card_file_stream);
-            }
-            else{
+            if(writing_file && !jpeg_header_bool(buffer_512_bytes)){
                 if(new_jpeg != NULL){
                     fwrite(buffer_512_bytes,sizeof(buffer_512_bytes[0]),512, new_jpeg);
                     writing_file = true;
                 }
             }
-            }
+        }
 
         }
     }else if(feof(memory_card_file_stream)){
