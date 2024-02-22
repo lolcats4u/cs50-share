@@ -19,44 +19,52 @@ int main(int argc, char *argv[])
     }
 }
 
-void open_memory_card(char *cl_argument)
+int open_memory_card(char *cl_argument)
 {
+    // return 1; 
+    // failed to open new jpeg file;
+
+    //return2;
+    //bad cla
     int number_of_jpegs_read = 0;
-    char file_counter[4] = "000";
+    char file_counter[8] = "000.jpg";
 
     FILE* memory_card_file_stream = fopen(cl_argument, "rb");
     if(memory_card_file_stream != NULL)
     {   
         BYTE buffer_512_bytes[512];
         FILE *new_jpeg;
-        bool writing_file = false;
+        bool file_is_open = false;
         while(fread(&buffer_512_bytes, sizeof(buffer_512_bytes),1,memory_card_file_stream))
         {
-            if(writing_file && jpeg_header_bool(buffer_512_bytes)){
+            if(file_is_open && jpeg_header_bool(buffer_512_bytes)){
                 fclose(new_jpeg);
                 number_of_jpegs_read++;
-                writing_file = false;
+                file_is_open = false;
             }
-            if(jpeg_header_bool(buffer_512_bytes) && !writing_file){
+            if(jpeg_header_bool(buffer_512_bytes) && !file_is_open){
                 int_to_counter(number_of_jpegs_read, file_counter);
                 new_jpeg = fopen(file_counter, "wb");
                 if(new_jpeg != NULL){
-                    writing_file = true;
+                    file_is_open = true;
+                }else{
+                    printf("Jpeg failed to open");
+                    return 1;
                 }
             }
-            if(writing_file){
-                if(new_jpeg != NULL){
-                    fwrite(buffer_512_bytes,sizeof(buffer_512_bytes[0]),512, new_jpeg);
-                }
+            if(file_is_open){
+                fwrite(buffer_512_bytes,sizeof(buffer_512_bytes[0]),512, new_jpeg);
             }
-        }
+        }return 0;
     }
     else if(feof(memory_card_file_stream)){
         fclose(memory_card_file_stream);
         printf("Reached end of card\n");
+        return 0;
     }
     else{
         printf("File %s not found", cl_argument);
+        return 2;
     }
 }
 
@@ -79,4 +87,5 @@ bool jpeg_header_bool(BYTE* buffer){
         {
             return true;
         }
+    return false;
 }
