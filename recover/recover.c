@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <inttypes.h>
 
-int open_memory_card(char *cl_argument);
+void open_memory_card(char *cl_argument);
 void int_to_counter(int number_of_jpegs, char* base_counter);
 typedef uint8_t BYTE;
 
@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     }
 }
 
-int open_memory_card(char *cl_argument)
+void open_memory_card(char *cl_argument)
 {
     int number_of_jpegs_read = 0;
     char file_counter[3] = "000";
@@ -45,16 +45,16 @@ int open_memory_card(char *cl_argument)
                     else{
                         fclose(memory_card_file_stream);
                         fclose(new_jpeg);
-                        return 1;
+                        printf("New jpeg not created\n");
                     }
                 }
         }
     }else if(feof(memory_card_file_stream)){
         fclose(memory_card_file_stream);
-        return 0;
+        printf("Reached end of card\n");
     }
     else{
-        return 1;
+        printf("File %s not found", cl_argument);
     }
 }
 
