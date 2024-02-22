@@ -27,6 +27,9 @@ int open_memory_card(char *cl_argument)
 
     //return2;
     //bad cla
+
+    //return3;
+    //file not found
     int number_of_jpegs_read = 0;
     char file_counter[8] = "000.jpg";
 
@@ -60,7 +63,7 @@ int open_memory_card(char *cl_argument)
     }
     else{
         printf("File %s not found", cl_argument);
-        return 2;
+        return 3;
     }
 }
 
