@@ -4,7 +4,7 @@
 #include <inttypes.h>
 #include <stdbool.h>
 
-void open_memory_card(char *cl_argument);
+int open_memory_card(char *cl_argument);
 void int_to_counter(int number_of_jpegs, char* base_counter);
 typedef uint8_t BYTE;
 bool jpeg_header_bool(BYTE* buffer);
@@ -12,10 +12,11 @@ bool jpeg_header_bool(BYTE* buffer);
 int main(int argc, char *argv[])
 {
     if(argc == 2){
-        open_memory_card(argv[1]);
+        return open_memory_card(argv[1]);
     }
     else{
         printf("Please include filename");
+        return 2;
     }
 }
 
