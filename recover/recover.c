@@ -53,6 +53,7 @@ int open_memory_card(char *cl_argument)
                     file_is_open = true;
                 }else{
                     printf("Jpeg failed to open");
+                    fclose(memory_card_file_stream);
                     return 2;
                 }
             }
