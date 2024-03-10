@@ -56,8 +56,8 @@ person *create_family(int generations)
         int parent0_flip = rand() % 2;
         int parent1_flip = rand() % 2;
 
-        kid->alleles[0]=parents[0].alleles[parent0_flip];
-        kid->alleles[1]=parents[1].alleles[parent1_flip];
+        kid->alleles[0]=kid->parents[0].alleles[parent0_flip];
+        kid->alleles[1]=kid->parents[1].alleles[parent1_flip];
     }
 
     // If there are no generations left to create
@@ -68,13 +68,13 @@ person *create_family(int generations)
         kid->parents[1] = NULL;
 
         // Randomly assign alleles
-        parent0->alleles[0] = random_allele();
-        parent0->alleles[1] = random_allele();
+        kid->alleles[0] = random_allele();
+        kid->alleles[1] = random_allele();
 
     }
 
     // Return newly created person
-    return *kid;
+    return kid;
 }
 
 // Free `p` and all ancestors of `p`.
