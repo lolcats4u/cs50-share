@@ -29,7 +29,38 @@ bool check(const char *word)
 unsigned int hash(const char *word)
 {
     // TODO: Improve this hash function
-    return toupper(word[0]) - 'A';
+    int char_values[LENGTH + 1];
+    for(int i = 0; i < LENGTH; i++)
+    {
+        int char_value = toupper(word[i]) - 0;
+        char_values[i] = char_value;
+    }
+    char_values[LENGTH + 1] = "/0";
+    int concatenated_number = 0;
+    for(int i = 0; i < LENGTH; i++)
+    {
+        if (concatenated_number == 0)
+        {
+            concatenated_number = char_values[i];
+        }
+        else
+        {
+            concatenated_number = concatenate(concatenated_number, char_values[i]);
+        }
+
+    }
+    return concatenated_number
+}
+
+int concatenate(int number1, int number2)
+{
+    int power = 10;
+    while(number2 >= power)
+    {
+        power *= 10;
+    }
+    return number1 * power + number2;
+
 }
 
 // Loads dictionary into memory, returning true if successful, else false
