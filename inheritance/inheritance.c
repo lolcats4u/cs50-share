@@ -56,8 +56,8 @@ person *create_family(int generations)
         int parent0_flip = rand() % 2;
         int parent1_flip = rand() % 2;
 
-        kid->alleles[0]=kid->parents[0].alleles[parent0_flip];
-        kid->alleles[1]=kid->parents[1].alleles[parent1_flip];
+        kid->alleles[0]=kid->parents[0]->alleles[parent0_flip];
+        kid->alleles[1]=kid->parents[1]->alleles[parent1_flip];
     }
 
     // If there are no generations left to create
