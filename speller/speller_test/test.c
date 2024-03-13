@@ -46,8 +46,7 @@ unsigned int hash(const char *word)
     //Assign that int value to the char_values memory
     for(int i = 0; i < LENGTH; i++)
     {
-        int char_value = toupper(word[i]) - 0;
-        char_values[i] = char_value;
+        char_values[i] = toupper(word[i]);
     }
 
     //concatenate all of the ascii char ints into a single int
