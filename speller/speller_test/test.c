@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define LENGTH 45
 int concatenate(int number1, int number2);
@@ -90,10 +91,8 @@ int *array_to_malloc_pointer()
 {
     const int size_char_array = sizeof(char) * (LENGTH + 1);
     int *array_to_heap = malloc(size_char_array);
-
     //initialize memory strip to 0🧹
     memset(array_to_heap, 0, size_char_array);
-
     return array_to_heap;
 }
 
