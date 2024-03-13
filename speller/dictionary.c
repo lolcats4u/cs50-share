@@ -29,13 +29,24 @@ bool check(const char *word)
 unsigned int hash(const char *word)
 {
     // TODO: Improve this hash function
+    //initialize array of character values
     int char_values[LENGTH + 1];
+    //clean char_values array 🧹
+    for (int i = 0; i < LENGTH; i++)
+    {
+        char_values[i] = 0;
+    }
+    //Put definitive end value on char_values array
+    char_values[LENGTH + 1] = "/0";
+
+    //Convert word string to a set of character ints
+    //Place each char int in the char values array
     for(int i = 0; i < LENGTH; i++)
     {
         int char_value = toupper(word[i]) - 0;
         char_values[i] = char_value;
     }
-    char_values[LENGTH + 1] = "/0";
+
     int concatenated_number = 0;
     for(int i = 0; i < LENGTH; i++)
     {

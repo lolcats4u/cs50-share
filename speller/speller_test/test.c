@@ -88,16 +88,12 @@ unsigned int hash(const char *word)
 
 int *array_to_malloc_pointer()
 {
-    //initialize array of character values
-    int new_array_def[LENGTH + 1];
+    const int size_char_array = sizeof(char * (LENGTH + 1));
     //TODO see if there's a way to statically make the size of the array
-    int *array_to_heap = malloc(sizeof(new_array_def));
+    int *array_to_heap = malloc(size_char_array);
 
     //initialize memory strip to 0🧹
-    for (int i = 0; i < LENGTH + 1; i++)
-    {
-        array_to_heap[i] = 0;
-    }
+    memset(array_to_heap, 0, size_char_array);
 
     return array_to_heap;
 }
