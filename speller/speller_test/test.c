@@ -46,12 +46,6 @@ unsigned int hash(const char *word)
     //Assign that int value to the char_values memory
     strcopy(char_values, toupper(word));
 
-    //concatenate all of the ascii char ints into a single int
-    unsigned int char_int = concatenate_ints_in_memory(char_values);
-
-    //free the memory used for char values
-    free(char_values);
-
     //I used http://www.cs.cmu.edu/afs/cs/academic/class/15210-s15/www/lectures/hash-notes.pdf
     //as inspiration for this hash because it was a little more 
     //friendly than http://math.uchicago.edu/~may/REU2020/REUPapers/Miller.pdf
@@ -67,20 +61,17 @@ unsigned int hash(const char *word)
 
     int count = 1;
     unsigned int wilkinsons_value = 1;
-    int hash_value = 0;
-    int *hash_array = array_to_malloc_pointer();
-    while (count < 21)
+    for(int i = 1; i < 21; i ++)
     {
-        wilkinsons_value = wilkinsons_value * (char_int - count);
-        hash_array[count - 1] =  (wilkinsons_value % 3);
-        count ++;
+        wilkinsons_value = wilkinsons_value * (char_values[i - 1] - i);
+        char_values[i - 1] = wilkinsons_value;
+        print("%c", char_values[i - 1]);
     }
-    hash_value = concatenate_ints_in_memory(hash_array);
 
     //TODO make sure this is sufficiently unique
-    printf("Hash value %d", hash_value);
+    printf("Hash value %c", char_values);
 
-    return hash_value;
+    return char_values;
 }
 
 int *array_to_malloc_pointer()
