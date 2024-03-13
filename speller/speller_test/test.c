@@ -44,10 +44,7 @@ unsigned int hash(const char *word)
 
     //Determine the int value of each character.
     //Assign that int value to the char_values memory
-    for(int i = 0; i < LENGTH; i++)
-    {
-        char_values[i] = toupper(word[i]);
-    }
+    strcopy(char_values, toupper(word));
 
     //concatenate all of the ascii char ints into a single int
     unsigned int char_int = concatenate_ints_in_memory(char_values);
