@@ -98,18 +98,18 @@ int *array_to_malloc_pointer()
 
 unsigned int concatenate_ints_in_memory(int *char_values)
 {
-    unsigned int heap_int = 0;
+    unsigned int concatenated_integer = 0;
     for(int i = 0; i < LENGTH; i++)
     {
-        if (heap_int == 0)
+        if (concatenated_integer == 0)
         {
-            heap_int = char_values[i];
+            concatenated_integer = char_values[i];
         }
         else
         {
-            heap_int = concatenate(heap_int, char_values[i]);
+            concatenated_integer = concatenate(concatenated_integer, char_values[i]);
         }
 
     }
-    return heap_int;
+    return concatenated_integer;
 }
