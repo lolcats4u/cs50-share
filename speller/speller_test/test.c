@@ -15,7 +15,7 @@ unsigned int concatenate_ints_in_memory(int *char_values);
 
 int main()
 {
-    const char *word = "some_word";
+    const char *word = "This is some real bullshit right here ";
     unsigned int hash_value = hash(word);
     return 0;
 }
