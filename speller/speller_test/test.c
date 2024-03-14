@@ -52,7 +52,7 @@ unsigned int hash(const char *word)
 
     //Step 1: Evaluate a wilkinson's polynomial term at char_int. 
     //        Multiply it by the product of previous wilkinsons terms
-    //Step 4: Add the values to receive a unique value
+    //Step 3: Add the values to receive a unique value
 
     int count = 1;
     unsigned int wilkinsons_value = 1;
