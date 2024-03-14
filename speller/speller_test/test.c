@@ -65,7 +65,7 @@ unsigned int hash(const char *word)
     int count = 1;
     unsigned int wilkinsons_value = 1;
     unsigned int *hash_values = unsigned_int_malloc();
-    for(int i = 1; i < 21; i ++)
+    for(int i = 1; i < LENGTH + 1; i ++)
     {
         wilkinsons_value = wilkinsons_value * (char_values[i - 1] - i);
         hash_values[i - 1] = wilkinsons_value;
