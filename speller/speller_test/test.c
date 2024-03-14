@@ -67,10 +67,10 @@ unsigned int hash(const char *word)
     unsigned int *hash_values = unsigned_int_malloc();
     for(int i = 0; i < LENGTH + 1; i ++)
     {
-        for(int j = 1; i < 5; i ++)
+        for(int j = 1; j < 5; j ++)
         {
             int term = (char_values[i] - j);
-            wilkinsons_value = wilkinsons_value * term;
+            wilkinsons_value = (wilkinsons_value * term) % 512;
         }
         hash_values[i] = wilkinsons_value;
         printf("Wilkinsons value %x \n", wilkinsons_value);
