@@ -5,7 +5,7 @@
 
 #define LENGTH 45
 int concatenate(int number1, int number2);
-unsigned int hash(const char *word);
+unsigned long int hash(const char *word);
 
 //This returns a malloc pointer and does not free
 int *int_malloc();
@@ -30,13 +30,14 @@ int concatenate(int number1, int number2)
     return number1 * power + number2;
 }
 
-unsigned int hash(const char *word)
+unsigned long int hash(const char *word)
 {
     // TODO: Improve this hash function
 
     //Convert word string to a set of character ints
     //Place each char int in the char values array
     int *char_values = int_malloc();
+    int str_length = 0;
     for(int i = 0; i < LENGTH + 1; i ++)
     {
         if(word[i])
@@ -45,10 +46,16 @@ unsigned int hash(const char *word)
         }
         else
         {
+            str_length = i;
             break;
         }
 
     }
+    for(int i = 0; i < LENGTH + 1; i ++)
+    {
+        printf("%c" ,char_values[i]);
+    }
+    printf("\n");
 
     //I used http://www.cs.cmu.edu/afs/cs/academic/class/15210-s15/www/lectures/hash-notes.pdf
     //as inspiration for this hash because it was a little more 
@@ -65,25 +72,26 @@ unsigned int hash(const char *word)
     int count = 1;
     unsigned int wilkinsons_value = 1;
     unsigned int *hash_values = unsigned_int_malloc();
-    for(int i = 1; i < LENGTH + 1; i ++)
+    for(int i = 1; i < str_length + 1; i ++)
     {
         wilkinsons_value = wilkinsons_value * (char_values[i - 1] - i);
         hash_values[i - 1] = wilkinsons_value;
-        wilkinsons_value = wilkinsons_value % 512;
-        printf("Current Hash value is %i\n", hash_values[i - 1]);
+        wilkinsons_value = (wilkinsons_value % 512) + 1;
+        printf("%i Current Hash value is %i\n", i, hash_values[i - 1]);
     }
     free(char_values);
 
     //TODO this really ought to be one value
     printf("Hash Value: \n");
-    unsigned int hash_sum = 0;
+    unsigned long int hash_sum = 0;
     for(int i = 0; i < LENGTH + 1; i ++)
     {
         hash_sum = hash_sum + hash_values[i];
         printf("The value of %i, is %i\n", i,hash_values[i]);
     }
+    hash_sum = hash_sum % UINT_FAST64_MAX;
 
-    printf("Hash Sum is %i\n", hash_sum);
+    printf("Hash Sum is %lu\n", hash_sum);
 
     return hash_sum;
 }
