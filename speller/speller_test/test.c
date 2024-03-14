@@ -3,12 +3,12 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <string.h>
+#include <stdbool.h>
 
 #define LENGTH 45
 int concatenate(int number1, int number2);
 unsigned int hash(const char *word);
-
-//This returns a malloc pointer and does not free
+bool load(const char *dictionary);
 int *int_malloc();
 unsigned int *unsigned_int_malloc();
 unsigned int concatenate_ints_in_memory(int *char_values);
@@ -16,8 +16,6 @@ unsigned int concatenate_ints_in_memory(int *char_values);
 
 int main()
 {
-    const char *word = "This is some real bullshit right here ";
-    unsigned int hash_value = hash(word);
     return 0;
 }
 
@@ -52,11 +50,6 @@ unsigned int hash(const char *word)
         }
 
     }
-    for(int i = 0; i < LENGTH + 1; i ++)
-    {
-        printf("%c" ,char_values[i]);
-    }
-    printf("\n");
 
     //I used http://www.cs.cmu.edu/afs/cs/academic/class/15210-s15/www/lectures/hash-notes.pdf
     //as inspiration for this hash because it was a little more 
@@ -82,6 +75,7 @@ unsigned int hash(const char *word)
     free(char_values);
 
     unsigned long int hash_sum = 0;
+
     for(int i = 0; i < str_length + 1; i ++)
     {
         hash_sum = hash_sum + hash_values[i];
@@ -124,4 +118,9 @@ unsigned int concatenate_ints_in_memory(int *char_values)
         }
     }
     return concatenated_integer;
+}
+bool load(const char *dictionary)
+{
+    // TODO
+    return false;
 }
