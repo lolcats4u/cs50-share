@@ -39,7 +39,15 @@ unsigned int hash(const char *word)
     int *char_values = int_malloc();
     for(int i = 0; i < LENGTH + 1; i ++)
     {
-        char_values[i] = toupper(word[i]);
+        if(word[i])
+        {
+            char_values[i] = toupper(word[i]);
+        }
+        else
+        {
+            break;
+        }
+
     }
 
     //I used http://www.cs.cmu.edu/afs/cs/academic/class/15210-s15/www/lectures/hash-notes.pdf
