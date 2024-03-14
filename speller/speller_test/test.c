@@ -58,17 +58,18 @@ unsigned int hash(const char *word)
     //notation so lets just call this my "interpretation" of wilkinson's polynomial evaluated at 
     //char_int
 
-    //Step 1: Evaluate a wilkinson's polynomial term at char_int. 
+    //Step 1: Evaluate a wilkinson's polynomial term at different char_int. 
     //        Multiply it by the product of previous wilkinsons terms
     //Step 3: Add the values to receive a unique value
 
     int count = 1;
     unsigned int wilkinsons_value = 1;
     unsigned int *hash_values = unsigned_int_malloc();
-    for(int i = 1; i < 21; i ++)
+    for(int i = 1; i < LENGTH + 1; i ++)
     {
         wilkinsons_value = wilkinsons_value * (char_values[i - 1] - i);
         hash_values[i - 1] = wilkinsons_value;
+        wilkinsons_value % 512;
         printf("Current Hash value is %i\n", hash_values[i - 1]);
     }
     free(char_values);
