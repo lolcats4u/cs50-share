@@ -6,7 +6,7 @@
 
 #define LENGTH 45
 int concatenate(int number1, int number2);
-unsigned long int hash(const char *word);
+unsigned int hash(const char *word);
 
 //This returns a malloc pointer and does not free
 int *int_malloc();
@@ -31,7 +31,7 @@ int concatenate(int number1, int number2)
     return number1 * power + number2;
 }
 
-unsigned long int hash(const char *word)
+unsigned int hash(const char *word)
 {
     // TODO: Improve this hash function
 
