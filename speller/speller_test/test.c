@@ -68,7 +68,8 @@ unsigned int hash(const char *word)
     for(int i = 1; i < LENGTH + 1; i ++)
     {
         wilkinsons_value = wilkinsons_value * (char_values[i - 1] - i);
-        hash_values[i - 1] = wilkinsons_value % 512;
+        hash_values[i - 1] = wilkinsons_value;
+        wilkinsons_value = wilkinsons_value % 512;
         printf("Current Hash value is %i\n", hash_values[i - 1]);
     }
     free(char_values);
