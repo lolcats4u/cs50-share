@@ -108,7 +108,6 @@ unsigned int concatenate_ints_in_memory(int *char_values)
         {
             concatenated_integer = concatenate(concatenated_integer, char_values[i]);
         }
-
     }
     return concatenated_integer;
 }
