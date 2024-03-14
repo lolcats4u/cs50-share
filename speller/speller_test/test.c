@@ -82,13 +82,13 @@ unsigned int hash(const char *word)
     free(char_values);
 
     unsigned long int hash_sum = 0;
-    for(int i = 0; i < LENGTH + 1; i ++)
+    for(int i = 0; i < str_length + 1; i ++)
     {
         hash_sum = hash_sum + hash_values[i];
     }
     hash_sum = hash_sum % UINT_MAX;
 
-    printf("Hash Sum is %lu\n", hash_sum);
+    free(hash_values);
 
     return hash_sum;
 }
