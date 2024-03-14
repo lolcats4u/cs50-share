@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <limits.h>
 #include <string.h>
 
 #define LENGTH 45
@@ -77,7 +78,6 @@ unsigned long int hash(const char *word)
         wilkinsons_value = wilkinsons_value * (char_values[i - 1] - i);
         hash_values[i - 1] = wilkinsons_value;
         wilkinsons_value = (wilkinsons_value % 512) + 1;
-        printf("%i Current Hash value is %i\n", i, hash_values[i - 1]);
     }
     free(char_values);
 
@@ -89,7 +89,7 @@ unsigned long int hash(const char *word)
         hash_sum = hash_sum + hash_values[i];
         printf("The value of %i, is %i\n", i,hash_values[i]);
     }
-    hash_sum = hash_sum % UINT_FAST64_MAX;
+    hash_sum = hash_sum % UINT_MAX;
 
     printf("Hash Sum is %lu\n", hash_sum);
 
