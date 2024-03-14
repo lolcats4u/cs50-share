@@ -52,8 +52,7 @@ unsigned int hash(const char *word)
 
     //Step 1: Evaluate a wilkinson's polynomial term at char_int. 
     //        Multiply it by the product of previous wilkinsons terms
-    //step 2: Mod this value with 3 *its almost pi day 🥧*
-    //Step 4: Add the mod values to receive a unique value
+    //Step 4: Add the values to receive a unique value
 
     int count = 1;
     unsigned int wilkinsons_value = 1;
