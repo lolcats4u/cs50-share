@@ -8,7 +8,8 @@ int concatenate(int number1, int number2);
 unsigned int hash(const char *word);
 
 //This returns a malloc pointer and does not free
-int *array_to_malloc_pointer();
+int *int_malloc();
+unsigned int *unsigned_int_malloc();
 unsigned int concatenate_ints_in_memory(int *char_values);
 
 
@@ -16,10 +17,6 @@ int main()
 {
     const char *word = "some_word";
     unsigned int hash_value = hash(word);
-    printf("%c\n", *word);
-    printf("%d\n", hash_value);
-
-
     return 0;
 }
 
@@ -39,12 +36,11 @@ unsigned int hash(const char *word)
 
     //Convert word string to a set of character ints
     //Place each char int in the char values array
-    int *char_values = array_to_malloc_pointer();
-
-
-    //Determine the int value of each character.
-    //Assign that int value to the char_values memory
-    strcopy(char_values, toupper(word));
+    int *char_values = int_malloc();
+    for(int i = 0; i < LENGTH + 1; i ++)
+    {
+        char_values[i] = toupper(word[i]);
+    }
 
     //I used http://www.cs.cmu.edu/afs/cs/academic/class/15210-s15/www/lectures/hash-notes.pdf
     //as inspiration for this hash because it was a little more 
@@ -57,28 +53,45 @@ unsigned int hash(const char *word)
     //Step 1: Evaluate a wilkinson's polynomial term at char_int. 
     //        Multiply it by the product of previous wilkinsons terms
     //step 2: Mod this value with 3 *its almost pi day 🥧*
-    //Step 4: Concatenate the mod values to receive a unique value
+    //Step 4: Add the mod values to receive a unique value
 
     int count = 1;
     unsigned int wilkinsons_value = 1;
+    unsigned int *hash_values = unsigned_int_malloc();
     for(int i = 1; i < 21; i ++)
     {
         wilkinsons_value = wilkinsons_value * (char_values[i - 1] - i);
-        char_values[i - 1] = wilkinsons_value;
-        print("%c", char_values[i - 1]);
+        hash_values[i - 1] = wilkinsons_value;
+        printf("Current Hash value is %i\n", hash_values[i - 1]);
+    }
+    free(char_values);
+
+    //TODO this really ought to be one value
+    printf("Hash Value: \n");
+    unsigned int hash_sum = 0;
+    for(int i = 0; i < LENGTH + 1; i ++)
+    {
+        hash_sum = hash_sum + hash_values[i];
+        printf("The value of %i, is %i\n", i,hash_values[i]);
     }
 
-    //TODO make sure this is sufficiently unique
-    printf("Hash value %c", char_values);
+    printf("Hash Sum is %i\n", hash_sum);
 
-    return char_values;
+    return hash_sum;
 }
 
-int *array_to_malloc_pointer()
+int *int_malloc()
 {
-    const int size_char_array = sizeof(char) * (LENGTH + 1);
+    const int size_char_array = sizeof(int) * (LENGTH + 1);
     int *array_to_heap = malloc(size_char_array);
-    //initialize memory strip to 0🧹
+    memset(array_to_heap, 0, size_char_array);
+    return array_to_heap;
+}
+
+unsigned int *unsigned_int_malloc()
+{
+    const int size_char_array = sizeof(unsigned int) * (LENGTH + 1);
+    unsigned int *array_to_heap = malloc(size_char_array);
     memset(array_to_heap, 0, size_char_array);
     return array_to_heap;
 }
