@@ -8,7 +8,6 @@
 #define LENGTH 45
 int concatenate(int number1, int number2);
 unsigned int hash(const char *word);
-bool load(const char *dictionary);
 int *int_malloc();
 unsigned int *unsigned_int_malloc();
 unsigned int concatenate_ints_in_memory(int *char_values);
@@ -118,9 +117,4 @@ unsigned int concatenate_ints_in_memory(int *char_values)
         }
     }
     return concatenated_integer;
-}
-bool load(const char *dictionary)
-{
-    // TODO
-    return false;
 }
